@@ -48,7 +48,7 @@ tm.define("TitleScene", {
     init: function() {
         this.superInit();
         
-        tm.asset.Manager.get("bgm_title").clone().play();
+        // tm.asset.Manager.get("bgm_title").clone().play();
         
         this.stage = tm.display.CanvasElement().addChildTo(this);
         
