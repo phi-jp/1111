@@ -42,7 +42,9 @@ phina.define('TitleScene', {
   init: function() {
     this.superInit();
 
-    this.fromJSON({
+    this.stage = CanvasElement().addChildTo(this);
+
+    this.stage.fromJSON({
       children: {
         title: {
           className: 'Label',
@@ -67,7 +69,52 @@ phina.define('TitleScene', {
           y: this.gridY.center(2),
         },
       }
-    })
+    });
+
+    this.one('pointstart', function() {
+      this.stage.tweener
+        .clear()
+        .fadeOut()
+        .call(function() {
+          this.exit();
+        }, this);
+    });
   },
 });
+
+
+
+phina.define('MainScene', {
+  superClass: 'CanvasScene',
+
+  init: function() {
+    this.superInit();
+
+    this.stage = CanvasElement().addChildTo(this);
+
+    this.stage.fromJSON({
+      children: {
+        tapLabel: {
+          className: 'Label',
+          arguments: {
+            text: '0',
+            color: 'red',
+            fontSize: 200,
+            fontFamily: 'FreckleFace',
+          },
+          x: this.gridX.center(),
+          y: this.gridY.center(),
+        },
+      }
+    });
+
+    this.tapCount = 0;
+  },
+
+  onpointstart: function() {
+    this.tapCount++;
+    this.stage.tapLabel.text = this.tapCount + '';
+  },
+});
+
 
